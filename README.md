@@ -137,21 +137,7 @@ Selanjutnya kita buat kembali model dengan algoritma Random Forest menggunakan p
 ## Evaluation
 Pada studi kasus ini, metrik yang saya gunakan yaitu mean absolute error.  
 ![MAE](https://www.statisticshowto.com/wp-content/uploads/2016/10/MAE.png)  
-Sederhananya, metriks ini menghitung absolut atau nilai mutlak dari selisih hasil sebenarnya dengan hasil prediksi. Jika dibandingkan dengan mse, mse akan menghitung kuadrat dari selisih nilai sebenarnya dengan nilai prediksi. Yang artinya, jika hasil prediksi besar, maka mse akan memiliki nilai yang jauh lebih besar. Begitu pula sebaliknya, jika selisih antara nilai sebenarnya dengan prediksi kecil, mse akan memperkecil nilai tersebut, mengingat formula mse adalah kuadrat dari selisih hasil.
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
-
-
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
-
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
-
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+Sederhananya, metriks ini menghitung absolut atau nilai mutlak dari selisih hasil sebenarnya dengan hasil prediksi. Jika dibandingkan dengan mse, mse akan menghitung kuadrat dari selisih nilai sebenarnya dengan nilai prediksi. Yang artinya, jika hasil prediksi besar, maka mse akan memiliki nilai yang jauh lebih besar. Begitu pula sebaliknya, jika selisih antara nilai sebenarnya dengan prediksi kecil, mse akan memperkecil nilai tersebut.  
+Kesimpulannya, algoritma Random Forest ini memiliki tingkat error yang paling minim jika dibandingkan dengan kedua algoritma di atas. Dengan demikian, model yang telah dibuat dapat memprediksi harga laptop berdasarkan spesifikasi tertentu dengan tingkat error yang tidak terlalu jauh. Berdasarkan hasil prediksi yang diberikan, para pemangku keputusan baik itu penjual laptop, maupun customer yang akan membeli laptop mendapatkan gambaran terkait harga pasar laptop yang ada, dan dapat menentukan harga jual laptop dengan tujuan meraih profit.
 
 **---Ini adalah bagian akhir laporan---**
-
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
