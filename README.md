@@ -169,10 +169,12 @@ Gambar 14. Distribusi Hasil Prediksi Dengan Label Asli menggunakan *Linear Regre
 Sekilas terlihat bahwa algoritma *Random Forest* pada gambar 12 membentuk pola garis lurus. Hal ini menunjukkan bahwa hasil prediksi model dengan label asli tidak melenceng terlalu jauh.
 
 Oleh sebab itu, dari ketiga algoritma tersebut algoritma *Random Forest* memiliki tingkat error yang paling minim jika dibandingkan dengan algoritma yang lain. Berdasarkan hal tersebut model dengan algoritma *Random Forest* merupakan model terbaik untuk memprediksi harga laptop dengan tingkat *error* yang kecil dan akurat.  
-Untuk itu, saya akan melakukan peningkatan terhadap model ini dengan tujuan dapat memperkecil tingkat *error* agar prediksi model lebih akurat lagi. Adapun teknik yang akan saya gunakan yaitu menggunakan *GridSearchCV* pada *library* sklearn.   
-Dalam praktiknya, saya akan mengumpulkan parameter-parameter yang akan diujikan. Dalam tahap ini, saya akan menguji parameter n_estimator sebanyak 50, 60, 70, 80, 90,dan 100. Adapun untuk parameter max_depthnya saya akan mencoba nilai 4, 8, 16, 32, dan 64.   
+Untuk itu, saya akan melakukan peningkatan terhadap model ini dengan tujuan dapat memperkecil tingkat *error* agar prediksi model lebih akurat lagi. Adapun teknik yang akan saya gunakan yaitu menggunakan *GridSearchCV* pada *library* sklearn.  
+
+Dalam praktiknya, saya akan mengumpulkan parameter-parameter yang akan diujikan. Dalam tahap ini, saya akan menguji parameter n_estimator sebanyak 50, 60, 70, 80, 90,dan 100. Adapun untuk parameter max_depthnya saya akan mencoba nilai 4, 8, 16, 32, dan 64.  
 Selanjutnya saya akan mencari parameter terbaik dengan mengirimkan parameter terhadap fungsi `GridSearchCV()` berupa model yang akan dicari parameter terbaiknya,  dalam hal ini yaitu *Random Forest*, serta parameter terbaik yang akan dicarinya, kemudian *cross validation* atau tiap berapa kali pengujian akan dilakukan, dan metrik evaluasi apa yang akan dicari skor terbaiknya, dalam hal ini saya akan mencari metrik evaluasi mae sebagai skornya. Setelah tahapan tersebut dilakukan, selanjutnya yaitu menampilkan parameter terbaik dengan menjalankan kode `best_params_`.  
-Selanjutnya kita buat kembali model dengan algoritma *Random Forest* menggunakan parameter terbaik yang telah didapatkan sebelumnya. Kemudian kita cek skor mae menggunakan data uji dan data latih. Hasilnya, model memperoleh score mae sebesar 3259 pada data uji. Hasil ini mengalami peningkatan mengingat skor mae pada data uji sebelumnya yaitu sebesar 3272.
+
+Selanjutnya kita latih kembali data dengan model *Random Forest* menggunakan parameter terbaik yang telah didapatkan sebelumnya. Kemudian kita cek skor mae menggunakan data uji dan data latih. Hasilnya, model memperoleh score mae sebesar 3259 pada data uji. Hasil ini mengalami peningkatan mengingat skor mae pada data uji sebelumnya yaitu sebesar 3272.
 
 ## Evaluation
 Pada studi kasus ini, metrik yang akan digunakan yaitu *mean absolute error*(MAE).  
