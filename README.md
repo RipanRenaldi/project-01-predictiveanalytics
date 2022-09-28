@@ -67,8 +67,8 @@ Gambar 1. Distribusi *Brand*
     Berdasarkan gambar 1, Asus merupakan *brand* yang paling sering muncul pada data.
 
 - Jenis ukuran ram yang digunakan pada laptop :  
-![Ram Size](https://github.com/RipanRenaldi/project-01-predictiveanalytics/blob/main/img/eda_ram.png?raw=True)
-Gambar 2. Distribusi *Ram Size*
+![Ram Size](https://github.com/RipanRenaldi/project-01-predictiveanalytics/blob/main/img/eda_ram.png?raw=True)  
+Gambar 2. Distribusi *Ram Size*  
 Berdasarkan gambar 2, Laptop memiliki variasi ukuran ram yang beragam, ada yang 4 GB, 8 GB, 16GB, dan 32 GB. Namun, kebanyakan laptop menggunakan ukuran ram sebesar 8 GB.
 - Berbagai merek prosesor yang digunakan pada laptop :  
 ![Merk Processor](https://github.com/RipanRenaldi/project-01-predictiveanalytics/blob/main/img/eda_processor_brand.png?raw=True)  
