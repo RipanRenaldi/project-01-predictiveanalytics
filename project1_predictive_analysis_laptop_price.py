@@ -20,109 +20,209 @@ import seaborn as sns
 df = pd.read_csv("/content/laptop_data.csv")
 df
 
+"""# Exploratory Data Analisis
+
+## Deskripsi Variabel
+"""
+
 df.info()
 
-# data di atas memiliki 23 kolom dan 896 baris, dengan tipe data 7 int, 15 object, 1 float.
-# mari cek missing value
+"""Data di atas memiliki 896 baris data dan 23 kolom, dengan 7 tipe data integer, 15 object, dan 1 float.  
+Selanjutnya lakukan pengecekan *missing value* pada data
+
+## Pengecekan Missing Values
+"""
+
 df.isna().sum()
 
-"""sekilas data diatas tidak memiliki missing value, namun jika kita lihat data yang ada, pada kolom display_size memiliki value "Missing" yang berarti missing value pada data"""
+"""sekilas data diatas tidak memiliki *missing value*, namun jika kita lihat data yang ada, pada kolom "display_size" memiliki value "Missing" yang berarti *missing value* pada data. Sehingga kita akan menangani *missing value* itu pada tahap data preparation nantinya.
 
-#cek data duplikat
-df.duplicated().sum()
-
-# hapus duplikat
-df = df.drop_duplicates()
-df
-
-"""Mari kita ubah missing value menjadi NaN terlebih dahulu"""
+Untuk sementara mari ubah *missing value* pada data menjadi NaN. Hal tersebut dilakukan untuk melakukan pengecekan jika terdapat *missing value* pada kolom lain.
+"""
 
 df = df.replace("Missing",np.nan)
 df
 
-"""cek missing value
+"""cek *missing value* pada kolom lain
 
 """
 
 df.isna().sum()
 
-"""kita memiliki 23 column, sehingga tidak apa jika kita hapus kolom yang memiliki missing value terbanyak. Terlepas dari kolom yang kita punya, dataset kita masih memiliki informasi yang cukup
+"""ternyata terdapat *missing value* pada 3 buah kolom dengan nilai "Missing". kita memiliki 23 column, sehingga tidak apa jika kita hapus kolom yang memiliki *missing value* terbanyak. Terlepas dari jumlah kolom yang kita punya, dataset masih memiliki informasi yang cukup.  
+menghapus kolom yang memiliki *missing value* terbanyak.
 
+## Pengecekan data duplikat
 """
+
+df.duplicated().sum()
+
+"""Ternyata data memiliki data yang berulang, sehingga perlu menghapus data duplikat tersebut."""
+
+df = df.drop_duplicates()
+df
 
 df = df.drop(columns=["display_size"])
 df
 
-"""# Exploratory Data Analisis"""
+"""## Univariate Analysis
 
-# Univariate analisis
-# Brand apa yang paling banyak muncul pada data
+### *Brand* apa yang paling banyak muncul pada data?
+"""
+
 counts = df["brand"].value_counts()
-counts.plot(kind="bar") # Asus merupakan brand yang paling banyak pada data
+counts.plot(kind="bar")
+plt.ylabel("Jumlah")
+plt.title("Brand")
+plt.savefig("eda_brand", dpi=70)
+plt.show()
 
-# berapa ukuran ram yang digunakan pada laptop?
+"""*Brand* yang paling sering muncul pada data yaitu Asus
+
+### Variasi ukuran ram yang digunakan pada laptop
+"""
+
 counts = df["ram_gb"].value_counts()
 counts.plot(kind="bar")
+plt.title("Jenis Ukuran Ram")
+plt.ylabel("Jumlah Sampel")
+plt.savefig("eda_ram", dpi=70)
+plt.show()
 
-# merk processor apa saja yang digunakan pada laptop
+"""Laptop memiliki variasi ukuran ram yang beragam, ada yang 4 GB, 8 GB, 16GB, dan 32 GB. Namun, kebanyakan laptop menggunakan ukuran ram sebesar 8 GB.
+
+### Merek *processor* apa saja yang digunakan pada laptop?
+"""
+
 counts = df["processor_brand"].value_counts()
 counts.plot(kind="bar")
+plt.title("Processor Brand")
+plt.ylabel("Jumlah Sampel")
+plt.savefig("eda_processor_brand", dpi=70)
+plt.show()
 
-# Generasi processor yang digunakan pada laptop
+"""Kebanyakan laptop menggunakan *brand* Intel, dan AMD. Sedangkan sisanya menggunakan M1, Meidatek, Qualcomm
+
+### Generasi processor yang digunakan pada laptop
+"""
+
 counts = df["processor_gnrtn"].value_counts()
-counts.plot(kind="bar") # kesimpulan yang didapatkan yakni bahwa laptop yanmg digunakan kebanyakan laptop terbaru, dengan chipset processor
-                        # generasi 10 dan 11
+counts.plot(kind="bar") 
+plt.title("Processor Generation")
+plt.ylabel("Jumlah Sampel")
+plt.savefig("eda_processor_gnrtn", dpi=70)
+plt.show()
 
-# Jenis-jenis ukuran kapasitas ssd yang digunakan pada laptop
+"""Lebih dari 50% laptop yang ada menggunakan processor generasi 10 dan 11, dan sisanya menggunakan generasi processor selain itu.
+
+### Jenis ukuran memori SSD yang digunakan pada laptop
+"""
+
 counts = df["ssd"].value_counts()
+plt.figure(figsize=(5,7))
 counts.plot(kind="bar")
+plt.title("Jenis Kapasitas Memori SSD")
+plt.ylabel("Jumlah Sample")
+plt.xlabel("Ukuran")
+plt.savefig("eda_ssd", dpi=70)
+plt.show()
 
-# jenis-jenis ukuran kapasitas hdd yang digunakan pada laptop
+"""Ternyata laptop lebih banyak menerapkan SSD. Lebih dari 50% laptop yang ada menggunakan SSD sebagai penyimpanannya. Adapun variasi penyimpanannya sendiri beragam, mulai dari 32 GB hingga 512 GB
+
+### Jenis ukuran memori hdd yang digunakan pada laptop
+"""
+
 counts = df["hdd"].value_counts()
+plt.figure(figsize=(5,7))
 counts.plot(kind="bar")
+plt.title("Variasi Kapasitas Memori")
+plt.xlabel("Ukuran")
+plt.ylabel("Jumlah Sampel")
+plt.savefig("eda_hdd", dpi=70)
+plt.show()
 
-# apakah laptop-laptop yang ada menerapkan fitur Touchscreen?
+"""Laptop yang menggunakan hdd sebagai penyimpanannya berjumlah sedikit. Adapun ukuran yang digunakannya pun beragam. Mulai dari 512 GB hingga 2048 GB
+
+### Laptop yang menerapkan fitur *touchscreen* didalamnya
+"""
+
 counts = df["Touchscreen"].value_counts()
 counts.plot(kind="bar")
+plt.title("Laptop Dengan Fitur Touchscreen")
+plt.ylabel("Jumlah Sampel")
+plt.savefig("eda_touchscreen", dpi=70)
+plt.show()
 
-# jenis processor yang digunakan pada laptop
+"""Laptop yang ada hampir keseluruhan tidak menerapkan fitur *touchscreen* didalamnya
+
+### Jenis *processor* yang digunakan pada laptop
+"""
+
 counts = df["processor_name"].value_counts()
-counts.plot(kind="bar") # kebanyakan processor pada laptop menggunakan intel core i5
+counts.plot(kind="bar")
+plt.title("Jenis Processor")
+plt.ylabel("Jumlah Sampel")
+plt.savefig("eda_processor_name", dpi=70)
+plt.show()
 
-# berapa banyak laptop yang telah terinstall msoffice 
+"""Kebanyakan laptop yang ada menggunakan jenis processor intel core i5, diikuti dengan core i3, core i7, ryzen 5, dan ryzen 9.
+
+### Laptop yang telah terinstall MsOffice didalamnya
+"""
+
 counts = df["msoffice"].value_counts()
 counts.plot(kind="bar")
+plt.title("Laptop Dengan MsOffice Didalamnya")
+plt.ylabel("Jumlah Sampel")
+plt.savefig("eda_msoffice", dpi=70)
+plt.show()
 
-# apa saja type ram yang digunakan pada laptop
+"""Kebanyakan laptop tidak terinstall msoffice didalamnya.
+
+### Tipe ram yang digunakan pada laptop
+"""
+
 counts = df["ram_type"].value_counts()
 counts.plot(kind="bar")
+plt.title("Tipe Ram")
+plt.ylabel("Jumlah Sampel")
+plt.savefig("eda_ram_type", dpi=70)
+plt.show()
+
+"""lebih dari 70% laptop yang ada, menggunakan DDR4 sebagai tipe ramnya."""
 
 df.columns
 
-# jenis ukuran graphic_card / VGA dalam satuan GB yang digunakan pada laptop
+"""### Variasi ukuran *graphic card* dalam satuan GB pada laptop"""
+
 counts = df["graphic_card_gb"].value_counts()
-counts.plot(kind="bar") # kurang dari 30% data yang ada menggunakan vga dengan ukuran 2,4,6,8 GB
+counts.plot(kind="bar") 
+plt.xlabel("Ukuran")
+plt.title("Ukuran Graphic Card Dalam GB")
+plt.savefig("eda_graphic_card", dpi=70)
+plt.ylabel("Jumlah Sampel")
 
-"""## Menangani Missing value dengan teknik arbitrary imputation"""
+"""Laptop yang menggunakan *graphic card* dengan ukuran di atas 2GB berjumlah sedikit
 
-# Mengingat dataset yang kita miliki berjumlah sedikit, sehingga saya penerapan teknik imputation yang lain agak dilema..
-# seperti imputation mean, median, modus, zero value. Sehingga saya akan menggunakan teknik imputasi arbitrary suka-suka, dengan tujuan menjadikan
-# nilai imputasi tersebut menjadi nilai tersendiri
+# Data Preparation
+
+## Menangani *missing value* dengan teknik arbitrary imputation
+
+menggunakan teknik imputasi arbitrary(suka-suka), dengan tujuan menjadikan nilai imputasi tersebut menjadi nilai tersendiri
+"""
 
 df.isna().sum()
+
+"""Mengganti *missing value* dengan nilai tersendiri yang direpresentasikan oleh "x"
+"""
 
 df = df.fillna("x")
 df
 
-df["graphic_card_gb"]
-
 df.isna().sum()
 
-"""## Membersihkan data
+"""## menghilangkan karakter string pada data sekaligus mengubahnya menjadi tipe data number"""
 
-"""
-
-# menghilangkan karakter string pada data sekaligus mengubahnya menjadi tipe data number
 df["ram_gb"] = df["ram_gb"].str.replace("GB GB","")
 df["ram_gb"] = pd.to_numeric(df["ram_gb"])
 
@@ -136,26 +236,17 @@ df
 df["os_bit"] = df["os_bit"].str.replace("-bit","")
 df["os_bit"] = pd.to_numeric(df["os_bit"])
 
-"""## Melihat korelasi label latest_price terhadap fitur kategorical"""
-
-# Melihat korelasi fitur latestprice terhadap fitur kategorical
-cat_feature = df.select_dtypes(include="object")
-cat_feature = cat_feature.columns
-
-for column in cat_feature:
-  sns.catplot(x=column, y="latest_price", data=df, kind="bar")
-
 """## Menangani data ordinal atau data yang berurutan dengan label encoder
 
+data ordinal atau data yang berurutan mencakup kolom processor_gnrtn, dan ram_type
 """
 
-# data ordinal atau data yang berurutan mencakup kolom processor_gnrtn, dan ram_type
 le = LabelEncoder()
 df["processor_gnrtn"] = le.fit_transform(df["processor_gnrtn"])
 df["ram_type"] = le.fit_transform(df["ram_type"])
 df
 
-"""## Menangani binary data dengan mengubah "yes" menjadi 1, dan "no" jadi 0"""
+"""## Menangani *binary data* dengan mengubah "yes" | "64"-bit menjadi 1, dan "no" | "32"-bit jadi 0."""
 
 df.info()
 
@@ -168,22 +259,25 @@ df
 
 """## Menangani data nominal atau data yang tidak berurutan dengan one hot encoding
 
+nominal data terletak pada kolom, brand, model, processor_brand, processor_name, os, weight,
 """
 
-# nominal data terletak pada kolom, brand, model, processor_brand, processor_name, os, weight, 
 category = pd.get_dummies(df[["brand","model","processor_brand","processor_name","os","weight"]])
 category
 
 saved_df = df.copy()
 
+"""Melakukan konkatenasi dataframe asli dengan data yang telah dilakukan one hot encoder"""
+
 new_df = pd.concat([df, category],axis=1)
 new_df
 
-# drop kolom original
+"""Menghapus kolom yang telah dilakukan one hot encoder"""
+
 new_df = new_df.drop(columns=["brand","model","processor_brand","processor_name","os","weight"])
 new_df
 
-"""## Membagi data latih dan data uji
+"""### Membagi data latih dan data uji dengan rasio 80-20
 
 """
 
@@ -192,35 +286,75 @@ label = new_df["latest_price"]
 
 X_train, X_test, Y_train, Y_test = train_test_split(fitur, label, test_size=.2, random_state=42)
 
-"""## Modeling menggunakan beberapa algoritma"""
+"""# *Modeling* menggunakan beberapa algoritma
 
-rf = RandomForestRegressor(n_estimators=80, max_depth=16)
+## Metrik evaluasi yang digunakan yaitu MAE. Goals yang akan dicapai yaitu mencari algoritma dengan output MAE sekecil mungkin
+
+## Random Forest
+"""
+
+rf = RandomForestRegressor(n_estimators=80, max_depth=16, random_state=99)
 rf.fit(X_train, Y_train)
+
+"""Skor *metric* MAE menggunakan algoritma Random Forest terhadap data latih"""
 
 mae = mean_absolute_error(Y_train, rf.predict(X_train))
 mae
 
+"""Distribusi hasil prediksi dengan label asli"""
+
 plt.scatter(Y_train, rf.predict(X_train))
+plt.xlabel("Label Asli")
+plt.ylabel("Hasil Prediksi")
+plt.title("Distribusi hasil prediksi Random Forest")
+plt.savefig("distribusi_rf", dpi=70)
+plt.show()
+
+"""Observasi hasil prediksi dengan label asli"""
 
 prediksi = rf.predict(X_test)
 hasil = {"Label" : Y_test, "hasil_prediksi" : prediksi}
 pd.DataFrame(hasil)
 
-rf.score(X_test,Y_test)
+"""## *Boosting Algorithm* dengan metode *Adaptive Boosting*"""
 
 boosting = AdaBoostRegressor(n_estimators = 50, learning_rate= 0.005)
 boosting.fit(X_train, Y_train)
 
-boosting_mae = mean_absolute_error(Y_test, boosting.predict(X_test))
+"""*Score metric* MAE terhadap data latih"""
+
+boosting_mae = mean_absolute_error(Y_train, boosting.predict(X_train))
 boosting_mae
+
+"""Distribusi hasil prediksi dengan label asli"""
+
+plt.scatter(Y_train, boosting.predict(X_train))
+plt.xlabel("Label Asli")
+plt.ylabel("Hasil prediksi")
+plt.title("Distribusi hasil prediksi boosting")
+plt.savefig("distribusi_boosting", dpi=70)
+plt.show()
+
+"""## *Linear Regression*"""
 
 linreg = LinearRegression()
 linreg.fit(X_train, Y_train)
 
+"""*Score metric* MAE terhadap data latih"""
+
 linreg_mae = mean_absolute_error(Y_train, linreg.predict(X_train))
 linreg_mae
 
+"""Distribusi hasil prediksi dengan label asli"""
+
 plt.scatter(Y_train, linreg.predict(X_train))
+plt.xlabel("Label Asli")
+plt.ylabel("Hasil Prediksi")
+plt.title("Distribusi hasil prediksi linear regression")
+plt.savefig("distribusi_linreg", dpi=70)
+plt.show()
+
+"""Data Frame untuk representasi *score* MAE pada data latih dan data uji"""
 
 model_dict = {"rf" : rf, "boosting" : boosting, "lr" : linreg}
 model_mae = pd.DataFrame(index=["rf","boosting","lr"], columns=["train_mae","test_mae"])
@@ -230,14 +364,20 @@ for x,y in model_dict.items():
 
 model_mae
 
+"""grafik hasil skor MAE terhadap data latih dan data uji pada masing-masing algoritma"""
+
+plt.ylabel("MAE")
+plt.title("MAE Skor")
+plt.savefig("hasil_algoritma_mae")
 model_mae.plot(kind="bar")
+plt.show()
 
-"""### Terlihat bahwa algoritma random forest memiliki mae yang paling kecil, sehingga model inilah yang optimal untuk dataset prediksi harga laptop
+"""Terlihat bahwa algoritma random forest memiliki skor mae yang paling kecil, baik pada data latih maupun data uji. Sehingga model inilah yang optimal untuk dataset prediksi harga laptop
 
-#Improve model dengan hyperparameter tuning menggunakan GridSearchCV
+##Improve model dengan hyperparameter tuning menggunakan GridSearchCV
 """
 
-grid_params = {"n_estimators" : [50,60,70,80,90,100], "max_depth" : [4,8,16,32,64]}
+grid_params = {"n_estimators" : [50,60,70,80,90,100], "max_depth" : [4,8,16,32,64], "random_state" : [99]}
 grid = GridSearchCV(RandomForestRegressor(), grid_params, cv=5, verbose=2, scoring="neg_mean_absolute_error")
 grid.fit(X_train, Y_train)
 
@@ -245,7 +385,7 @@ print(grid.best_params_)
 
 """## Melatih ulang model menggunakan parameter terbaik"""
 
-model = RandomForestRegressor(n_estimators=100, max_depth=32)
+model = RandomForestRegressor(n_estimators=100, max_depth=16, random_state=99)
 model.fit(X_train, Y_train)
 
 model_mae.loc["rf","train_mae"] = mean_absolute_error(Y_train, model.predict(X_train))
